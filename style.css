@@ -1,0 +1,448 @@
+/* --- Reset y Estilos Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en enlaces internos */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+    overflow: hidden; /* Para contener floats si los hubiera */
+}
+
+a {
+    text-decoration: none;
+    color: #007bff; /* Azul típico para enlaces */
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%; /* Hace las imágenes responsivas */
+    height: auto;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-dark {
+    background-color: #f4f4f4; /* Fondo ligeramente gris */
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+h3 {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* --- Botón Genérico --- */
+.btn {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background: #0056b3;
+    color: #fff;
+}
+
+
+/* --- Header y Navegación --- */
+header {
+    background: #fff;
+    color: #333;
+    padding: 15px 0;
+    position: sticky; /* Header fijo */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    height: 40px; /* Ajusta esta altura según el tamaño deseado para tu logo */
+    width: auto;  /* Mantiene la proporción de la imagen */
+    display: block; /* Ayuda a evitar espacios extra debajo de la imagen */
+    /* vertical-align: middle;  -> No suele ser necesario con flexbox (align-items: center) pero puedes probar si algo se ve raro */
+}
+
+header nav ul {
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: #555;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active { /* Podrías añadir clase active con JS */
+    color: #007bff;
+}
+
+/* --- Slider --- */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 85vh; /* Altura del slider (ajustar según necesidad) */
+    overflow: hidden;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Transición suave */
+    display: flex; /* Para centrar contenido */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    text-align: center;
+}
+
+/* Overlay oscuro para mejorar legibilidad del texto */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad */
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2; /* Slide activo debe estar por encima */
+}
+
+.slide-content {
+    position: relative; /* Para que esté sobre el overlay */
+    z-index: 3;
+    color: #fff;
+    max-width: 900px; /* Ancho máximo del texto */
+}
+
+.slide-content h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.slide-content p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+/* Controles del Slider (Flechas) */
+.slider-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.slider-control:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.slider-control.prev {
+    left: 15px;
+}
+
+.slider-control.next {
+    right: 15px;
+}
+
+/* Indicadores del Slider (Puntos) */
+.slider-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #fff;
+}
+
+/* --- Sección Servicios --- */
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid responsive */
+    gap: 20px; /* Espacio entre items */
+    text-align: center;
+}
+
+.servicio-item {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicio-item:hover {
+    transform: translateY(-5px); /* Efecto levantar */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.servicio-icon {
+    width: 60px; /* Tamaño del icono */
+    height: 60px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.servicio-item h3 {
+    font-size: 1.4rem;
+    color: #007bff; /* Color del título del servicio */
+    margin-bottom: 10px;
+}
+
+/* --- Sección Contacto --- */
+.contacto-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Formulario más ancho */
+    gap: 40px;
+    align-items: start; /* Alinear al inicio */
+}
+
+.form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    min-height: 120px;
+}
+
+#contact-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.form-status {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.form-status.success {
+    color: green;
+}
+.form-status.error {
+    color: red;
+}
+
+.contact-info {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info h3 {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.contact-info strong {
+    color: #333;
+}
+
+/* --- Footer --- */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px; /* Espacio antes del footer */
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 992px) {
+    .slide-content h2 {
+        font-size: 2.5rem;
+    }
+    .slide-content p {
+        font-size: 1.1rem;
+    }
+    .contacto-content {
+        grid-template-columns: 1fr; /* Apilar formulario e info */
+    }
+    .contact-info {
+        margin-top: 30px; /* Espacio cuando se apila */
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* Apilar logo y nav */
+        text-align: center;
+    }
+    header nav ul {
+        margin-top: 10px;
+        justify-content: center; /* Centrar nav items */
+    }
+    header nav ul li {
+        margin: 0 10px; /* Ajustar margen horizontal */
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .slider-container {
+        height: 70vh; /* Reducir altura en móviles */
+    }
+
+    .slide-content h2 {
+        font-size: 2rem;
+    }
+    .slide-content p {
+        font-size: 1rem;
+    }
+    .slider-control {
+        font-size: 1.5rem;
+        padding: 8px 12px;
+    }
+    .slider-control.prev { left: 10px; }
+    .slider-control.next { right: 10px; }
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .servicios-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles pequeños */
+    }
+    .section {
+        padding: 40px 0;
+    }
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+    .slide-content h2 {
+        font-size: 1.8rem;
+    }
+     .slide-content p {
+        font-size: 0.9rem;
+    }
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    .form-container, .contact-info {
+        padding: 20px;
+    }
+}
